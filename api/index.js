@@ -1,19 +1,20 @@
-const express = require("express");
-const fs = require("fs").promises;
-const path = require("path");
-const { marked } = require("marked");
-const serverless = require("serverless-http"); // 追加
+import express from "express";
+import fs from "fs/promises";
+import path from "path";
+import { fileURLToPath } from "url";
+import { marked } from "marked";
+import serverless from "serverless-http";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "../views"));
 
-// 静的ファイルはVercelのpublic/で自動配信されるので不要
-
 const articlesDir = path.join(__dirname, "../articles");
-// トップページ（記事一覧）
-// トップページ（記事一覧）
+
 app.get("/", async (req, res) => {
     try {
         const files = await fs.readdir(articlesDir);
@@ -23,17 +24,10 @@ app.get("/", async (req, res) => {
             if (file.endsWith(".md")) {
                 const mdPath = path.join(articlesDir, file);
                 const mdContent = await fs.readFile(mdPath, "utf-8");
-
-                // 行ごとに分割
                 const lines = mdContent.split(/\r?\n/);
-
-                // 1行目をタイトル (# を外す)
                 const titleMatch = lines[0].match(/^#\s*(.+)/);
                 const title = titleMatch ? titleMatch[1] : file.replace(".md", "");
-
-                // 2行目を説明文
                 const description = lines[1] ? lines[1].trim() : "";
-
                 articleList.push({
                     title: title,
                     slug: file.replace(".md", ""),
@@ -49,18 +43,13 @@ app.get("/", async (req, res) => {
     }
 });
 
-// 記事詳細ページ
 app.get("/article/:slug", async (req, res) => {
     try {
         const filePath = path.join(articlesDir, `${req.params.slug}.md`);
         const md = await fs.readFile(filePath, "utf-8");
-
         const html = marked.parse(md);
-
-        // MDの1行目からタイトルを抽出
         const titleMatch = md.match(/^#\s(.+)/);
         const title = titleMatch ? titleMatch[1] : req.params.slug;
-
         res.render("articles", {
             title: title,
             content: html
@@ -71,9 +60,8 @@ app.get("/article/:slug", async (req, res) => {
     }
 });
 
-// AHAの創作利用規約ページ
 app.get("/terms", (req, res) => {
     res.render("terms");
 });
 
-module.exports = serverless(app); // ここを変更
+export default serverless(app);
