@@ -2,20 +2,16 @@ const express = require("express");
 const fs = require("fs").promises;
 const path = require("path");
 const { marked } = require("marked");
+const serverless = require("serverless-http"); // 追加
 
 const app = express();
-const PORT = process.env.PORT || 3000;
 
-// EJSテンプレート設定
 app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
+app.set("views", path.join(__dirname, "../views"));
 
-// 静的ファイル（CSSや画像）
-app.use(express.static(path.join(__dirname, "public")));
+// 静的ファイルはVercelのpublic/で自動配信されるので不要
 
-// 記事ディレクトリ
-const articlesDir = path.join(__dirname, "articles");
-
+const articlesDir = path.join(__dirname, "../articles");
 // トップページ（記事一覧）
 // トップページ（記事一覧）
 app.get("/", async (req, res) => {
@@ -80,4 +76,4 @@ app.get("/terms", (req, res) => {
     res.render("terms");
 });
 
-module.exports = app;
+module.exports = serverless(app); // ここを変更
