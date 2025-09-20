@@ -1,11 +1,8 @@
 {
   "name": "my-blog",
   "version": "1.0.0",
-  "type": "module", 
-  "main": "app.js",
-  "scripts": {
-    "start": "node app.js"
-  },
+  "type": "module",
+  "main": "/api/index.js",
   "keywords": [],
   "author": "",
   "license": "ISC",
