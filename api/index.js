@@ -10,31 +10,37 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
-app.set("views", path.join(__dirname, "../views"));
+// ...既存コード...
+app.set("views", path.resolve(__dirname, '..', 'views'));
+console.log("Express views directory:", app.get("views"));
 app.set("view engine", "ejs");
-const articlesDir = path.join(__dirname, "../articles");
+const articlesDir = path.resolve(__dirname, '..', "articles");
+// ...既存コード...
 
 app.get("/", async (req, res) => {
     try {
+        console.log("GET / called");
         const files = await fs.readdir(articlesDir);
+        console.log("files:", files);
+        // ...以下略...
         const articleList = [];
 
         for (const file of files) {
-            if (file.endsWith(".md")) {
-                const mdPath = path.join(articlesDir, file);
-                const mdContent = await fs.readFile(mdPath, "utf-8");
-                const lines = mdContent.split(/\r?\n/);
-                const titleMatch = lines[0].match(/^#\s*(.+)/);
-                const title = titleMatch ? titleMatch[1] : file.replace(".md", "");
-                const description = lines[1] ? lines[1].trim() : "";
-                articleList.push({
-                    title: title,
-                    slug: file.replace(".md", ""),
-                    description: description
-                });
-            }
+                if (file.endsWith(".md")) {
+                    const mdPath = path.join(articlesDir, file);
+                    const mdContent = await fs.readFile(mdPath, "utf-8");
+                    console.log("mdContent length:", mdContent.length);
+                    const lines = mdContent.split(/\r?\n/);
+                    const titleMatch = lines[0].match(/^#\s*(.+)/);
+                    const title = titleMatch ? titleMatch[1] : file.replace(".md", "");
+                    const description = lines[1] ? lines[1].trim() : "";
+                    articleList.push({
+                        title: title,
+                        slug: file.replace(".md", ""),
+                        description: description
+                    });
+                }
         }
-
         res.render("index", { articles: articleList });
     } catch (err) {
         console.error("記事一覧の読み込みエラー:", err);
