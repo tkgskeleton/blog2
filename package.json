@@ -1,8 +1,10 @@
 {
   "name": "my-blog",
   "version": "1.0.0",
-  "type": "module",
-  "main": "/api/index.js",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -10,7 +12,6 @@
   "dependencies": {
     "ejs": "^3.1.10",
     "express": "^5.1.0",
-    "marked": "^16.3.0",
-    "serverless-http": "^4.0.0"
+    "marked": "^16.3.0"
   }
 }
