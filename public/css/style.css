@@ -207,3 +207,40 @@ footer .logo {
 .article span {
   font-weight: bold;
 }
+
+/* ====== スマホ用調整 ====== */
+@media screen and (max-width: 768px) {
+  .containers {
+    flex-direction: column; /* サイドバーとメインを縦並びに */
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative; /* sticky外す */
+    top: 0;
+    margin-bottom: 20px;
+  }
+
+  .overview,
+  .article,
+  .article-list h2,
+  .article-item {
+    width: 95%; /* 固定幅を解除して画面幅に合わせる */
+    margin: 0 auto 15px auto;
+  }
+
+  .article-link {
+    font-size: 24px; /* 文字がデカすぎないよう調整 */
+  }
+
+  header, footer {
+    height: auto;
+    text-align: center;
+  }
+
+  header h1,
+  footer .logo {
+    font-size: 20px;
+  }
+}
