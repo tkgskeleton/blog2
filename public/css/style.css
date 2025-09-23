@@ -219,6 +219,12 @@ footer .logo {
     height: 100px;
     position: relative; /* sticky外す */
     top: 0;
+    padding: 10px 0;
+    text-align: center;
+  }
+
+  .sidebar nav {
+    margin-top: 0;         /* ← PC用の170pxマージンを潰す */
   }
 
   .overview,
