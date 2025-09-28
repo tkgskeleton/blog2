@@ -212,6 +212,16 @@ footer .logo {
   text-decoration: none;
 }
 
+.hax {
+  background-color:black;
+  border-radius: 5px;
+}
+
+.hax p {
+  color:#00FF00;
+  padding-top:10px;
+}
+
 /* ====== スマホ用調整 ====== */
 @media screen and (max-width: 768px) {
   .containers {

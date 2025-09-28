@@ -64,6 +64,10 @@ app.get("/terms", (req, res) => {
     res.render("terms");
 });
 
+app.get("/AHAbot-2", (req, res) => {
+    res.render("AHAbot2");
+});
+
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
 });
