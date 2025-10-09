@@ -22,7 +22,7 @@ html, body {
 
 /* ====== ヘッダー ====== */
 header {
-  background: #333;
+  background: #00473e;
   color: #fff;
   padding: 15px 20px;
   height:80px;
@@ -71,7 +71,7 @@ main {
 
 /* ====== フッター ====== */
 footer {
-  background: #333;
+  background: #00473e;
   color: #fff;
   text-align: left;
   padding: 10px;
@@ -96,7 +96,7 @@ p {
 }
 
 .sidebar {
-    background: #5F5F5F;
+    background: #00473e;
     width: 200px;       /* 任意の固定幅 */
     padding: 20px;
     background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
@@ -126,7 +126,7 @@ p {
 }
 
 .article-item p {
-  color:#5F5F5F;
+  color:#475d5b;
   width:60%;
   margin:0px auto;
   display: -webkit-box;
@@ -149,7 +149,7 @@ p {
 
 footer .logo {
   font-size:30px;
-  color :#757575;
+  color :#475d5b;
   
 }
 
